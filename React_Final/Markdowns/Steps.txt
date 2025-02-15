@@ -1,0 +1,17 @@
+1. Check vite.config.js - for config. of dev sever like changing port like ex.
+server: {
+    port : 3000,
+  }
+2. Open Terminal cd to created project folder and type - npm install to node module folders and dependecies found in package.json
+3. Then type npm run dev founf in package.json will give localhost running on port that you set in #1.
+4. If don't need delete App.css and also clear index.css and install Tailwind.css and configure it.
+5. Add fontFamily or grid properties in extend of tailwind.config.js as - 
+extend: {
+      fontFamily:{
+        sans: ['Roboto', 'sans-serif']
+      },
+      gridTemplateColumns:{
+        '70/30' : '70% 28%',
+      }
+    },
+6. Add import from tailwind.css in index.css
