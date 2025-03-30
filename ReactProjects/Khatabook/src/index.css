@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.singleTrans:hover .date,
+.singleTrans:hover .delete{
+    display: block;
+}
+.singleTrans:hover{
+    border-right-width: 24px;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 0;
+    display: block;
+    background: url('./assets/calendar.svg') no-repeat;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    cursor: pointer;
+}
+.signUpPage,
+.signInPage{
+    background: linear-gradient(307deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 37%, rgba(0, 212, 255, 1) 100%);
+}
