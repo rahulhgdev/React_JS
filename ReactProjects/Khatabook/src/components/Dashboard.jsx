@@ -27,7 +27,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="bg-[rgb(63,94,251)] h-screen pt-6 md:pt-10 px-4 relative mainDiv">
+    <div className="bg-[rgb(63,94,251)] h-dvh  pt-5 md:pt-10 px-4 relative mainDiv">
       <div className="flex items-center justify-center gap-4 mb-4">
         <h3 className='text-[18px] font-semibold text-white'>Welcome, {session?.user?.email} </h3>
         <img className='text-red cursor-pointer' onClick={handleSignOut} type="button" src={logOutImg} height="45" width="45" />

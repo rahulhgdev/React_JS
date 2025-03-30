@@ -4,6 +4,8 @@ import NoTransactionLogo from '../assets/not-found.svg';
 import prevImg from '../assets/prev.svg';
 import nextImg from '../assets/next.svg';
 import analyzeChart from '../assets/analyze-chart.svg';
+import commonTransImg from '../assets/mobile-note.svg';
+import deleteImg from '../assets/trash.svg';
 import Balance from './Balance'; // Import the Balance component
 import IncomeExpense from './IncomeExpense';
 import { Pie } from 'react-chartjs-2';
@@ -155,7 +157,7 @@ const TransHistory = () => {
                                         onClick={() => handleIndividualData(item)}
                                         className={`flex justify-between cursor-pointer relative mb-2 rounded-md shadow-sm p-1 pr-3 border-r-4 ${item.category === 'Expense' ? 'border-r-red-500' : 'border-r-green-500'} rounded-r-none me-2 singleTrans`}>
                                         <div className='flex gap-2'>
-                                            <img alt="" height="20" width="20" src="/src/assets/mobile-note.svg" />
+                                            <img alt="" height="20" width="20" src={commonTransImg} />
                                             <p className='text-[16px] font-medium itemTxt'>{item.name}</p>
                                         </div>
                                         <p className='text-[18px] font-medium amount'>₹ {(item.amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</p>
@@ -204,7 +206,7 @@ const TransHistory = () => {
                             <p className="leading-relaxed text-white text-base mt-2">
                                 {individualData ? individualData.description : '!Found'}
                             </p>
-                            <button onClick={() => handleDelete(individualData?.id)} className='block my-4 mx-auto w-full text-white bg-red-700 hover:bg-reds-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-reds-800'>Delete <img alt="trash" height="20" width="20" src="/src/assets/trash.svg" className='inline ms-2' /></button>
+                            <button onClick={() => handleDelete(individualData?.id)} className='block my-4 mx-auto w-full text-white bg-red-700 hover:bg-reds-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-reds-800'>Delete <img alt="trash" height="20" width="20" src={deleteImg} className='inline ms-2' /></button>
                         </div>
                     </div>
                 </div>
