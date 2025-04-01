@@ -38,7 +38,7 @@ export const GlobalProvider = ({ children }) => {
     // Add a new transaction to Supabase
     const addTransactions = async (transactions) => {
         const { data, error } = await supabase
-            .from('khatabook_db')  // Replace with your actual table name
+            .from('khatabook_db')
             .insert([transactions]);
         console.log(data);
 
@@ -46,8 +46,6 @@ export const GlobalProvider = ({ children }) => {
             console.error('Supabase Error:', error);
             return;
         }
-
-        console.log(typeof data);
 
         if (data && Array.isArray(data) && data.length > 0) {
             console.log('Refreshed data:', data);
@@ -72,7 +70,7 @@ export const GlobalProvider = ({ children }) => {
     // Delete a transaction from Supabase
     const deleteTransactions = async (id) => {
         const { error } = await supabase
-            .from('khatabook_db')  // Replace with your actual table name
+            .from('khatabook_db')
             .delete()
             .eq('id', id);
 
@@ -90,7 +88,7 @@ export const GlobalProvider = ({ children }) => {
     useEffect(() => {
         const fetchTransactions = async () => {
             const { data, error } = await supabase
-                .from('khatabook_db')  // Replace with your actual table name
+                .from('khatabook_db')
                 .select('*');
             if (error) console.error('Error fetching transactions:', error);
             else dispatch({ mode: 'SET_TRANSACTIONS', payload: data });

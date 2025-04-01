@@ -6,13 +6,13 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // Track loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession(); // Fetch session
+      const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
-      setIsLoading(false); // Set loading to false after session is fetched
+      setIsLoading(false);
     };
     fetchSession();
 
