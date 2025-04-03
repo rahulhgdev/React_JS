@@ -1,5 +1,5 @@
 // src/pages/SignUp.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
@@ -9,7 +9,14 @@ const SignUp = () => {
   const [error, setError] = useState('');
   
   const navigate = useNavigate();
-  const { signIn, loading } = useAuth();
+  const { session, signIn, loading } = useAuth();
+
+  // if login then -> dashboard
+  useEffect(() => {
+    if (session) {
+      navigate('/dashboard');
+    }
+  }, [navigate, session])
 
   const handleSignUp = async (e) => {
     e.preventDefault();

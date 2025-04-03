@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
@@ -9,7 +9,14 @@ const SignUp = () => {
   const [loading, setLoading] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { signUp, signUpWithGoogle } = useAuth();
+  const { session, signUp } = useAuth();
+
+  // if login then -> dashboard
+  useEffect(()=>{
+    if(session){
+      navigate('/dashboard');
+    }
+  }, [navigate, session])
 
   const handleSignUp = async (e) => {
     e.preventDefault();
