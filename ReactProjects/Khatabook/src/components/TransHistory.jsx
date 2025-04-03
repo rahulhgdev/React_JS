@@ -123,12 +123,12 @@ const TransHistory = () => {
         <>
             <div className='mt-6 TransHistory'>
                 <div className="flex gap-3 my-3 items-center justify-between">
-                    <h3 className='font-semibold text-[22px] pb-2'>Transactions History</h3>
+                    <h3 className='font-semibold text-[22px]'>Transactions History</h3>
                     {income > 0 || expense > 0 ? 
                         <img onClick={() => setShowChartModal(true)} src={analyzeChart} alt="chart" height="40" width="40" className='cursor-pointer' />: ''
                     }
                 </div>
-                <hr className='bg-black' />
+                <hr className='border-t border-black' />
                 <div className='transactions max-h-[350px] overflow-auto'>
                     {/* Month and Year display */}
                     <div className="flex justify-between items-center text-[16px] text-gray-500 my-2">
@@ -160,7 +160,7 @@ const TransHistory = () => {
                                             <img alt="" height="20" width="20" src={commonTransImg} />
                                             <p className='text-[16px] font-medium itemTxt'>{item.name}</p>
                                         </div>
-                                        <p className='text-[18px] font-medium amount'>₹ {(item.amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</p>
+                                        <p className='text-[18px] font-medium amount whitespace-nowrap'>₹ {(item.amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</p>
                                         <p onClick={(e) => {
                                                 e.stopPropagation(); // to stop opening modal when click on delete
                                                 handleDelete(item.id);
