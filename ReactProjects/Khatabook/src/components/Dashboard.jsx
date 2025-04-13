@@ -11,8 +11,6 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { session, signOut } = useAuth();
 
-  console.log(session);
-
   const handleSignOut = async (e) => {
     e.preventDefault();
     try {

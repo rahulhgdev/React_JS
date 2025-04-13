@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { FaEye, FaRegEyeSlash } from "react-icons/fa6";
 
 const SignUp = () => {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState('');
   const [error, setError] = useState('');
+  const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
   const { session, signUp } = useAuth();
 
   // if login then -> dashboard
-  useEffect(()=>{
-    if(session){
+  useEffect(() => {
+    if (session) {
       navigate('/dashboard');
     }
   }, [navigate, session])
 
+  const togglePass = () => {
+    setShowPass(!showPass);
+  }
+
   const handleSignUp = async (e) => {
     e.preventDefault();
     setError('');
-    if (!email || !password || !username) {
-      setError('Email, password, and username are required');
+    if (!email || !password) {
+      setError('Email and password are required');
       return;
     }
     if (password.length < 6) {
@@ -31,7 +36,7 @@ const SignUp = () => {
     }
 
     try {
-      await signUp(email, password, username);
+      await signUp(email, password);
       navigate('/dashboard');
     } catch (error) {
       setError(error.message);
@@ -49,16 +54,15 @@ const SignUp = () => {
             {error && <p className="text-red-500">{error}</p>}
             <form className="space-y-4 md:space-y-6" onSubmit={handleSignUp}>
               <div>
-                <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" name="username" id="username" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Godzilla2002" required="" />
-              </div>
-              <div>
                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="abc@xyz.com" required />
               </div>
-              <div>
+              <div className='relative'>
                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                <input value={password} onChange={(e) => setPassword(e.target.value)} type={showPass ? 'text' : 'password'} name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                {showPass ? <FaEye onClick={togglePass} className='absolute right-3 top-[42px] text-neutral-200' /> 
+                : <FaRegEyeSlash onClick={togglePass} className='absolute right-3 top-[42px] text-neutral-200' />}
+                
               </div>
 
               <button type="submit" disabled={loading} className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create an account</button>
