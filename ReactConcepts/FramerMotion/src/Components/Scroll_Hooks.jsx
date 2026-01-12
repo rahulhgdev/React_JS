@@ -95,8 +95,9 @@ const Scroll_Hooks = () => {
     const bgColors = ['#4d194d', '#004052', '#69583c', '#2e3b5c', '#3d1e6d'];
     const [background, setBackground] = useState(bgColors[0]);
     useMotionValueEvent(scrollYProgress, "change", (latest) => {
-        const finalValue = Math.floor(latest * bgColors.length);
-        setBackground(bgColors[finalValue]);
+        console.log("latest value --> ", latest);
+        const finalValue = Math.floor(latest * bgColors.length); // ex. motion value(latest): 0.44 & bgcolors.length: 5 => 0.44*5 = floor(2.2) ~ 2
+        setBackground(bgColors[finalValue]); // so for above ex., it'll set color 2 i.e. #004052
     })
 
     return (
@@ -139,9 +140,9 @@ const Card = ({ feature }) => {
     const opacityContent = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
 
      // To check motion tracking or not
-     useMotionValueEvent(blur, "change", (latest) => {
-        console.log("motion value: ", latest); // tracks in 0-100% i.e. motion value: 0-1
-    });
+    //  useMotionValueEvent(blur, "change", (latest) => {
+    //     console.log("motion value: ", latest); // tracks in 0-100% i.e. motion value: 0-1
+    // });
 
     return (
         <div
