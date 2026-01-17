@@ -11,9 +11,9 @@ const UserSettings = () => {
   const [senderImage, setSenderImage] = useState(senderImg);
   const [receiverImage, setReceiverImage] = useState(receiverImg);
  
-   // Refs for file inputs
-   const senderFileInputRef = useRef(null);
-   const receiverFileInputRef = useRef(null);
+  // Refs for file inputs
+  const senderFileInputRef = useRef(null);
+  const receiverFileInputRef = useRef(null);
 
   // Handler for image upload
   const handleImageUpload = (userType) => {
@@ -63,7 +63,7 @@ const UserSettings = () => {
         />
 
         {/* Sender Section */}
-        <h3 className="text-[#1E3A8A] text-sm font-bold">Sender</h3>
+        <h3 className="text-sm font-semibold">Sender</h3>
         <div className="flex gap-4">
           <div className="avatar relative">
             <img 
@@ -103,7 +103,7 @@ const UserSettings = () => {
         </div>
 
         {/* Receiver Section */}
-        <h3 className="text-[#1E3A8A] text-sm font-bold">Receiver</h3>
+        <h3 className="text-sm font-semibold">Receiver</h3>
         <div className="flex gap-4">
           <div className="avatar relative">
             <img 
