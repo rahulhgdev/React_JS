@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import senderImg from '../../assets/users/avatar.jpg';
-import receiverImg from '../../assets/users/chernobyl.jpg';
+import React, { useRef, useState } from 'react'
+import senderImg from '../../assets/users/sender-img.png';
+import receiverImg from '../../assets/users/receiver-img.png';
 import { CgSoftwareUpload } from "react-icons/cg";
 
 const UserSettings = () => {
@@ -8,11 +8,37 @@ const UserSettings = () => {
   const [receiver, setReceiver] = useState('Manoj');
   const [senderOnline, setSenderOnline] = useState(true);
   const [receiverOnline, setReceiverOnline] = useState(false);
+  const [senderImage, setSenderImage] = useState(senderImg);
+  const [receiverImage, setReceiverImage] = useState(receiverImg);
+ 
+   // Refs for file inputs
+   const senderFileInputRef = useRef(null);
+   const receiverFileInputRef = useRef(null);
 
   // Handler for image upload
   const handleImageUpload = (userType) => {
-    // TODO: Implement image upload functionality
+    if (userType === 'sender') {
+      senderFileInputRef.current?.click();
+    } else {
+      receiverFileInputRef.current?.click();
+    }
     console.log(`Upload image for ${userType}`);
+  };
+
+  // Handler for file selection
+  const handleFileChange = (e, userType) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (userType === 'sender') {
+          setSenderImage(reader.result);
+        } else {
+          setReceiverImage(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -20,14 +46,31 @@ const UserSettings = () => {
       <h4 className="text-lg font-semibold">User settings</h4>
 
       <div className="flex flex-col gap-4 p-4 bg-white rounded-lg">
+        {/* Hidden file inputs */}
+        <input
+          ref={senderFileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleFileChange(e, 'sender')}
+          className="hidden"
+        />
+        <input
+          ref={receiverFileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleFileChange(e, 'receiver')}
+          className="hidden"
+        />
+
         {/* Sender Section */}
         <h3 className="text-[#1E3A8A] text-sm font-bold">Sender</h3>
         <div className="flex gap-4">
           <div className="avatar relative">
             <img 
-              src={senderImg} 
+              src={senderImage} 
               alt="Sender Avatar" 
               className="h-15 w-15 rounded-full cursor-pointer" 
+              onClick={() => handleImageUpload('sender')}
             />
             <CgSoftwareUpload 
               className="absolute right-0 bottom-2 cursor-pointer hover:text-[#2563EB] transition-colors" 
@@ -64,9 +107,10 @@ const UserSettings = () => {
         <div className="flex gap-4">
           <div className="avatar relative">
             <img 
-              src={receiverImg} 
+              src={receiverImage} 
               alt="Receiver Avatar" 
               className="h-15 w-15 rounded-full cursor-pointer" 
+              onClick={() => handleImageUpload('receiver')}
             />
             <CgSoftwareUpload 
               className="absolute right-0 bottom-2 cursor-pointer hover:text-[#2563EB] transition-colors" 
