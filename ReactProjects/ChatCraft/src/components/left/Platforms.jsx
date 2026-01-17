@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { FaWhatsapp } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
@@ -17,13 +17,30 @@ const Platforms = () => {
 
     const [platform, setPlatform] = useState(options[0].value);
     const [open, setOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
     const selected = options.find(o => o.value === platform);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setOpen(false);
+            }
+        };
+
+        if (open) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [open]);
 
     return (
         <div className="flex flex-col gap-5 py-4">
             <h4 className="text-lg font-semibold">Select Platform</h4>
-            <div className="relative w-full">
+            <div className="relative w-full" ref={dropdownRef}>
                 <button 
                     className="flex items-center w-full gap-2 p-2 border border-gray-300 rounded-md bg-white shadow-sm"
                     onClick={() => setOpen(o => !o)}
