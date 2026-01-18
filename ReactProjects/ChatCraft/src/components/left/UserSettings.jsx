@@ -1,15 +1,11 @@
-import React, { useRef, useState } from 'react'
-import senderImg from '../../assets/users/sender-img.png';
-import receiverImg from '../../assets/users/receiver-img.png';
+import React, { useRef, useState, useContext } from 'react'
 import { CgSoftwareUpload } from "react-icons/cg";
+import { UserContext } from '../../context/userContext';
 
 const UserSettings = () => {
-  const [sender, setSender] = useState('Rahul');
-  const [receiver, setReceiver] = useState('Manoj');
+  const { sender, setSender, receiver, setReceiver, senderImage, setSenderImage, receiverImage, setReceiverImage } = useContext(UserContext);
   const [senderOnline, setSenderOnline] = useState(true);
   const [receiverOnline, setReceiverOnline] = useState(false);
-  const [senderImage, setSenderImage] = useState(senderImg);
-  const [receiverImage, setReceiverImage] = useState(receiverImg);
  
   // Refs for file inputs
   const senderFileInputRef = useRef(null);
